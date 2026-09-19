@@ -105,15 +105,16 @@ model Comment {
 }
 
 model RefreshToken {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  tokenHash String 
+  id        String   @id @default(uuid())
+  tokenId   String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String
   expiresAt DateTime
   revoked   Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@index([userId])
+  @@index([expiresAt])
   @@map("refresh_tokens")
 }

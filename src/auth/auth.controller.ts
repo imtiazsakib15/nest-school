@@ -6,6 +6,7 @@ import { RegisterDto } from './dto/register.dto.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import type { AuthenticatedUser } from './types/authenticated-user.js';
+import { RefreshTokenDto } from './dto/refresh-token.dto.js';
 
 @Controller({
   path: 'auth',
@@ -28,5 +29,10 @@ export class AuthController {
   @Get('me')
   getMe(@CurrentUser() user: AuthenticatedUser) {
     return user;
+  }
+
+  @Post('refresh')
+  refresh(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refresh(refreshTokenDto.refreshToken);
   }
 }
