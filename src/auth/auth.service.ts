@@ -218,6 +218,44 @@ export class AuthService {
     };
   }
 
+  async logout(refreshToken: string): Promise<void> {
+    const { tokenId, secret } = this.parseRefreshToken(refreshToken);
+
+    const storedToken = await this.prisma.refreshToken.findUnique({
+      where: {
+        tokenId,
+      },
+      select: {
+        id: true,
+        tokenHash: true,
+        revoked: true,
+      },
+    });
+
+    // Logout is intentionally idempotent.
+    // If the token no longer exists or was already revoked,
+    // there is nothing left to revoke.
+    if (!storedToken || storedToken.revoked) {
+      return;
+    }
+
+    const secretMatches = await argon2.verify(storedToken.tokenHash, secret);
+
+    if (!secretMatches) {
+      return;
+    }
+
+    await this.prisma.refreshToken.updateMany({
+      where: {
+        id: storedToken.id,
+        revoked: false,
+      },
+      data: {
+        revoked: true,
+      },
+    });
+  }
+
   private async createAccessToken(userId: string, role: Role): Promise<string> {
     return this.jwtService.signAsync({
       sub: userId,
