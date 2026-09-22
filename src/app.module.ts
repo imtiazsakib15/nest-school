@@ -8,6 +8,8 @@ import { PrismaModule } from './prisma/prisma.module.js';
 
 import configuration from './config/configuration.js';
 import { envValidationSchema } from './config/env.validation.js';
+import { StudentsModule } from './students/students.module.js';
+import { TeachersModule } from './teachers/teachers.module.js';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { envValidationSchema } from './config/env.validation.js';
     }),
     PrismaModule,
     AuthModule,
+    StudentsModule,
+    TeachersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

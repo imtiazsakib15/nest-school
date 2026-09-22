@@ -7,7 +7,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Roles } from '../common/decorators/roles.decorator.js';
 import { RolesGuard } from '../common/guards/roles.guard.js';
 
-import { AuthenticatedUser } from '../auth/types/authenticated-user.js';
+import type { AuthenticatedUser } from '../auth/types/authenticated-user.js';
 
 import { UpdateStudentProfileDto } from './dto/update-student-profile.dto.js';
 import { StudentsService } from './students.service.js';
