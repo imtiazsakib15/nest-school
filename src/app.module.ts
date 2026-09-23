@@ -10,6 +10,7 @@ import configuration from './config/configuration.js';
 import { envValidationSchema } from './config/env.validation.js';
 import { StudentsModule } from './students/students.module.js';
 import { TeachersModule } from './teachers/teachers.module.js';
+import { RatingsModule } from './ratings/ratings.module.js';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TeachersModule } from './teachers/teachers.module.js';
     AuthModule,
     StudentsModule,
     TeachersModule,
+    RatingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
