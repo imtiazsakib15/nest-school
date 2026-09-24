@@ -11,6 +11,7 @@ import { envValidationSchema } from './config/env.validation.js';
 import { StudentsModule } from './students/students.module.js';
 import { TeachersModule } from './teachers/teachers.module.js';
 import { RatingsModule } from './ratings/ratings.module.js';
+import { CommentsModule } from './comments/comments.module.js';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RatingsModule } from './ratings/ratings.module.js';
     StudentsModule,
     TeachersModule,
     RatingsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
